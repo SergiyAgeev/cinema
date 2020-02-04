@@ -1,4 +1,4 @@
-package mate.hibernate.cinema.lib;
+package com.dev.cinema.lib;
 
 import java.io.File;
 import java.io.IOException;
