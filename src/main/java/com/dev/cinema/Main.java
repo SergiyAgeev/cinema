@@ -10,7 +10,6 @@ public class Main {
     private static final Logger LOGGER = Logger.getLogger(Main.class);
     private static Injector injector = Injector.getInstance("com.dev.cinema");
 
-
     public static void main(String[] args) throws DataProcessingException {
         Movie movie = new Movie();
         movie.setTittle("Fast and Furious");
@@ -23,6 +22,4 @@ public class Main {
             LOGGER.error("can't get all movies " + e);
         }
     }
-
-
 }
