@@ -5,19 +5,21 @@ import com.dev.cinema.lib.Injector;
 import com.dev.cinema.model.CinemaHall;
 import com.dev.cinema.model.Movie;
 import com.dev.cinema.model.MovieSession;
+import com.dev.cinema.service.AuthenticationService;
 import com.dev.cinema.service.CinemaHallService;
 import com.dev.cinema.service.MovieService;
 import com.dev.cinema.service.MovieSessionService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import javax.security.sasl.AuthenticationException;
 import org.apache.log4j.Logger;
 
 public class Main {
     private static final Logger LOGGER = Logger.getLogger(Main.class);
     private static Injector injector = Injector.getInstance("com.dev.cinema");
 
-    public static void main(String[] args) throws DataProcessingException {
+    public static void main(String[] args) throws DataProcessingException, AuthenticationException {
         MovieService movieService = (MovieService)
                 injector.getInstance(MovieService.class);
 
@@ -53,5 +55,11 @@ public class Main {
         System.out.println("AVAILABLE SESSIONS");
         movieSessionService.findAvailableSessions(movie.getId(), LocalDate.now())
                 .forEach(System.out::println);
+
+        AuthenticationService authenticationService = (AuthenticationService)
+                injector.getInstance(AuthenticationService.class);
+        authenticationService.register("sergiyageev@gmail.com", "123");
+
+        authenticationService.login("sergiyageev@gmail.com", "123");
     }
 }
