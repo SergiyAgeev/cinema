@@ -14,7 +14,7 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true, length = 50)
-    private String tittle;
+    private String title;
     private String description;
 
     public Long getId() {
@@ -25,12 +25,12 @@ public class Movie {
         this.id = id;
     }
 
-    public String getTittle() {
-        return tittle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTittle(String tittle) {
-        this.tittle = tittle;
+    public void setTitle(String tittle) {
+        this.title = tittle;
     }
 
     public String getDescription() {
@@ -45,7 +45,7 @@ public class Movie {
     public String toString() {
         return "Movie{"
                 + "id=" + id
-                + ", tittle='" + tittle + '\''
+                + ", title='" + title + '\''
                 + ", description='" + description + '\''
                 + '}';
     }
