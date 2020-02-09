@@ -4,13 +4,11 @@ import com.dev.cinema.dao.OrderDao;
 import com.dev.cinema.exceptions.DataProcessingException;
 import com.dev.cinema.lib.Dao;
 import com.dev.cinema.model.Order;
-import com.dev.cinema.model.ShoppingCart;
 import com.dev.cinema.model.User;
 import com.dev.cinema.util.HibernateUtil;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 
 @Dao
 public class OrderDaoImpl implements OrderDao {
@@ -33,7 +31,7 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-   public List<Order> getOrderHistory(User user){
+    public List<Order> getOrderHistory(User user) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.createQuery("from Order where user = :user",
                     Order.class).setParameter("user", user).list();
