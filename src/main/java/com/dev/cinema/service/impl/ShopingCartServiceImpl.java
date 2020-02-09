@@ -3,13 +3,15 @@ package com.dev.cinema.service.impl;
 import com.dev.cinema.dao.ShoppingCartDao;
 import com.dev.cinema.dao.TicketDao;
 import com.dev.cinema.lib.Inject;
+import com.dev.cinema.lib.Service;
 import com.dev.cinema.model.MovieSession;
 import com.dev.cinema.model.ShoppingCart;
 import com.dev.cinema.model.Ticket;
 import com.dev.cinema.model.User;
 import com.dev.cinema.service.ShoppingCartService;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 
+@Service
 public class ShopingCartServiceImpl implements ShoppingCartService {
     @Inject
     private static TicketDao ticketDao;
@@ -24,7 +26,6 @@ public class ShopingCartServiceImpl implements ShoppingCartService {
 
         ShoppingCart shoppingCart = shoppingCartDao.getByUser(user);
         shoppingCart.getTickets().add(ticket);
-        shoppingCart.setLocalDateTime(LocalDateTime.now());
         ticketDao.add(ticket);
         shoppingCartDao.update(shoppingCart);
     }
@@ -39,5 +40,11 @@ public class ShopingCartServiceImpl implements ShoppingCartService {
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.setUser(user);
         shoppingCartDao.add(shoppingCart);
+    }
+
+    @Override
+    public void clear(ShoppingCart shoppingCart) {
+        shoppingCart.setTickets(new ArrayList<>());
+        shoppingCartDao.update(shoppingCart);
     }
 }
