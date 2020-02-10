@@ -14,9 +14,9 @@ import java.util.ArrayList;
 @Service
 public class ShopingCartServiceImpl implements ShoppingCartService {
     @Inject
-    private static TicketDao ticketDao;
+    private TicketDao ticketDao;
     @Inject
-    private static ShoppingCartDao shoppingCartDao;
+    private ShoppingCartDao shoppingCartDao;
 
     @Override
     public void addSession(MovieSession movieSession, User user) {
