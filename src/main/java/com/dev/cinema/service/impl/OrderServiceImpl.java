@@ -2,7 +2,7 @@ package com.dev.cinema.service.impl;
 
 import com.dev.cinema.dao.OrderDao;
 import com.dev.cinema.model.Order;
-import com.dev.cinema.model.Ticket;
+import com.dev.cinema.model.ShoppingCart;
 import com.dev.cinema.model.User;
 import com.dev.cinema.service.OrderService;
 import com.dev.cinema.service.ShoppingCartService;
@@ -25,12 +25,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order completeOrder(List<Ticket> tickets, User user) {
+    public Order completeOrder(User user) {
+        ShoppingCart shoppingCartByUser = shoppingCartService.getByUser(user);
         Order order = new Order();
+        order.setTickets(shoppingCartByUser.getTickets());
         order.setUser(user);
-        order.setTickets(tickets);
         order.setOrderDate(LocalDateTime.now());
-        shoppingCartService.clear(shoppingCartService.getByUser(user));
+        shoppingCartService.clearByUser(user);
         return orderDao.add(order);
     }
 
