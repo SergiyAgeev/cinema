@@ -26,9 +26,7 @@ public class CinemaHallController {
     @PostMapping
     public CinemaHallResponseDto createCinemaHall(
             @RequestBody CinemaHallRequestDto cinemaHallRequestDto) {
-        CinemaHall cinemaHall = new CinemaHall();
-        cinemaHall.setCapacity(cinemaHallRequestDto.getCapacity());
-        cinemaHall.setDescription(cinemaHallRequestDto.getDescription());
+        CinemaHall cinemaHall = getCinemaHallFromDto(cinemaHallRequestDto);
         cinemaHallService.add(cinemaHall);
         return getCinemaHallResponseDto(cinemaHall);
     }
@@ -44,5 +42,12 @@ public class CinemaHallController {
         cinemaHallResponseDto.setCapacity(cinemaHall.getCapacity());
         cinemaHallResponseDto.setDescription(cinemaHall.getDescription());
         return cinemaHallResponseDto;
+    }
+
+    private CinemaHall getCinemaHallFromDto(CinemaHallRequestDto cinemaHallRequestDto) {
+        CinemaHall cinemaHall = new CinemaHall();
+        cinemaHall.setCapacity(cinemaHallRequestDto.getCapacity());
+        cinemaHall.setDescription(cinemaHallRequestDto.getDescription());
+        return cinemaHall;
     }
 }

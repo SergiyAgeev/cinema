@@ -25,9 +25,7 @@ public class MovieController {
 
     @PostMapping
     public MovieResponseDto createMovie(@RequestBody MovieRequestDto movieRequestDto) {
-        Movie movie = new Movie();
-        movie.setTitle(movieRequestDto.getTitle());
-        movie.setDescription(movieRequestDto.getDescription());
+        Movie movie = getMovieFromDto(movieRequestDto);
         movieService.add(movie);
         return getMovieResponseDto(movie);
     }
@@ -44,5 +42,12 @@ public class MovieController {
         movieResponseDto.setDescription(movie.getDescription());
         movieResponseDto.setTitle(movie.getTitle());
         return movieResponseDto;
+    }
+
+    private Movie getMovieFromDto(MovieRequestDto movieRequestDto) {
+        Movie movie = new Movie();
+        movie.setTitle(movieRequestDto.getTitle());
+        movie.setDescription(movieRequestDto.getDescription());
+        return movie;
     }
 }

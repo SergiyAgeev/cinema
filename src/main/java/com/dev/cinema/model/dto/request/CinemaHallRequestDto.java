@@ -2,6 +2,7 @@ package com.dev.cinema.model.dto.request;
 
 public class CinemaHallRequestDto {
     private Integer capacity;
+    private String description;
 
     public Integer getCapacity() {
         return capacity;
@@ -18,7 +19,5 @@ public class CinemaHallRequestDto {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    private String description;
 
 }
