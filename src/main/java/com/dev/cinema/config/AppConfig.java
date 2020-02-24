@@ -1,7 +1,5 @@
 package com.dev.cinema.config;
 
-import com.dev.cinema.model.User;
-
 import java.util.Properties;
 import javax.sql.DataSource;
 
@@ -44,16 +42,17 @@ public class AppConfig {
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
         factoryBean.setDataSource(getDataSource());
 
-        Properties props = new Properties();
-        props.put("hibernate.show_sql", environment.getProperty("hibernate.show_sql"));
-        props.put("hibernate.hbm2ddl.auto", environment.getProperty("hibernate.hbm2ddl.auto"));
-        props.put("hibernate.format_sql", environment.getProperty("hibernate.format_sql"));
-        props.put("hibernate.use_sql_comments",
+        Properties properties = new Properties();
+        properties.put("hibernate.show_sql", environment.getProperty("hibernate.show_sql"));
+        properties.put("hibernate.hbm2ddl.auto",
+                environment.getProperty("hibernate.hbm2ddl.auto"));
+        properties.put("hibernate.format_sql", environment.getProperty("hibernate.format_sql"));
+        properties.put("hibernate.use_sql_comments",
                 environment.getProperty("hibernate.use_sql_comments"));
-        props.put("hibernate.dialect", environment.getProperty("hibernate.dialect"));
+        properties.put("hibernate.dialect", environment.getProperty("hibernate.dialect"));
 
-        factoryBean.setHibernateProperties(props);
-        factoryBean.setAnnotatedClasses(User.class);
+        factoryBean.setHibernateProperties(properties);
+        factoryBean.setPackagesToScan("com.dev.cinema.model");
         return factoryBean;
     }
 }

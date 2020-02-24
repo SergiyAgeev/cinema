@@ -48,4 +48,9 @@ public class UserDaoImpl implements UserDao {
             throw new DataProcessingException("Can't get available sessions", e);
         }
     }
+
+    @Override
+    public User getById(Long id) {
+        return sessionFactory.openSession().get(User.class, id);
+    }
 }

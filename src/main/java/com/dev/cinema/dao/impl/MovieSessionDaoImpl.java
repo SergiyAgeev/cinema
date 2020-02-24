@@ -54,7 +54,11 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
                 transaction.rollback();
             }
             throw new DataProcessingException("Can't add new movie session", e);
-
         }
+    }
+
+    @Override
+    public MovieSession getById(Long id) {
+        return sessionFactory.openSession().get(MovieSession.class, id);
     }
 }
