@@ -1,8 +1,11 @@
 package com.dev.cinema.model.dto.response;
 
+import javax.validation.constraints.NotEmpty;
+
 public class MovieSessionResponseDto {
     public Long movieId;
     public Long cinemaHallId;
+    @NotEmpty
     public String showTime;
 
     public Long getMovieId() {

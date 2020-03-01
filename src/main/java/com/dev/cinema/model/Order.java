@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "orders")
+@Table(name = "order")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +22,9 @@ public class Order {
     @ManyToOne
     private User user;
     private LocalDateTime orderDate;
+
+    public Order() {
+    }
 
     public Long getId() {
         return id;
