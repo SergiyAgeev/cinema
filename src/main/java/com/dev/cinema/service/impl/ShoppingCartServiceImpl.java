@@ -14,12 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ShopingCartServiceImpl implements ShoppingCartService {
+public class ShoppingCartServiceImpl implements ShoppingCartService {
     private final TicketDao ticketDao;
     private final ShoppingCartDao shoppingCartDao;
 
     @Autowired
-    public ShopingCartServiceImpl(ShoppingCartDao shoppingCartDao, TicketDao ticketDao) {
+    public ShoppingCartServiceImpl(ShoppingCartDao shoppingCartDao, TicketDao ticketDao) {
         this.shoppingCartDao = shoppingCartDao;
         this.ticketDao = ticketDao;
     }

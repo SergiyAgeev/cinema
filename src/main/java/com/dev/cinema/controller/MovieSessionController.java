@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,7 +38,7 @@ public class MovieSessionController {
 
     @PostMapping
     public MovieSessionResponseDto createMovieSession(
-            @RequestBody MovieSessionRequestDto movieSessionRequestDto) {
+            @RequestBody @Valid MovieSessionRequestDto movieSessionRequestDto) {
         MovieSession movieSession = getMovieSession(movieSessionRequestDto);
         return getMovieSessionResponseDto(movieSession);
     }

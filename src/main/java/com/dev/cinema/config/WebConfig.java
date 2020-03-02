@@ -9,7 +9,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.dev.cinema.controller"})
+@ComponentScan(basePackages = "com.dev.cinema.controller")
 public class WebConfig {
     @Bean
     public InternalResourceViewResolver getResolver() {

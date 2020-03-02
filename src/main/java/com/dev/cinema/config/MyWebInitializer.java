@@ -1,11 +1,13 @@
 package com.dev.cinema.config;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+@Component
 public class MyWebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[]{AppConfig.class,SecurityConfig.class};
+        return new Class[]{AppConfig.class, SecurityConfig.class};
     }
 
     @Override

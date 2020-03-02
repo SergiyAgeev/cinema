@@ -2,20 +2,19 @@ package com.dev.cinema.controller;
 
 import com.dev.cinema.model.Order;
 import com.dev.cinema.model.Ticket;
-import com.dev.cinema.model.dto.request.OrderRequestDto;
 import com.dev.cinema.model.dto.response.OrderResponseDto;
 import com.dev.cinema.model.dto.response.TicketResponseDto;
 import com.dev.cinema.service.OrderService;
 import com.dev.cinema.service.UserService;
 
+import java.security.Principal;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,14 +31,15 @@ public class OrderController {
     }
 
     @PostMapping("/complete")
-    public OrderResponseDto completeOrder(@RequestBody OrderRequestDto orderRequestDto) {
-        Order order = orderService.completeOrder(userService.getById(orderRequestDto.getUserId()));
+    public OrderResponseDto completeOrder(Authentication authentication) {
+        Order order = orderService.completeOrder(
+                userService.findByEmail(authentication.getName()));
         return getOrderResponseDto(order);
     }
 
     @GetMapping("/{userId}")
-    public List<Order> getAllOrders(@PathVariable Long userId) {
-        return orderService.getOrderHistory(userService.getById(userId));
+    public List<Order> getAllOrders(Principal principal) {
+        return orderService.getOrderHistory(userService.findByEmail(principal.getName()));
     }
 
     private OrderResponseDto getOrderResponseDto(Order order) {

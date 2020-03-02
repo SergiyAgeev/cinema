@@ -11,9 +11,11 @@ import com.dev.cinema.service.MovieSessionService;
 import com.dev.cinema.service.ShoppingCartService;
 import com.dev.cinema.service.UserService;
 
+import java.security.Principal;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.validation.Valid;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,19 +40,21 @@ public class ShoppingCartController {
     }
 
     @PostMapping("/addmoviesession")
-    public ShoppingCartResponseDto addToShoppingCart(@RequestBody ShoppingCartRequestDto
-                                                             shoppingCartRequestDto) {
+    public ShoppingCartResponseDto addToShoppingCart(@RequestBody @Valid ShoppingCartRequestDto
+                                                             shoppingCartRequestDto,
+                                                     Principal principal) {
         MovieSession movieSession =
                 movieSessionService.getById(shoppingCartRequestDto.getMovieSessionId());
-        User user = userService.getById(shoppingCartRequestDto.getUserId());
+        User user = userService.findByEmail(principal.getName());
         shoppingCartService.addSession(movieSession, user);
         return getShoppingCartResponseDto(shoppingCartService.getByUser(user));
     }
 
     @GetMapping("/byuser{userId}")
-    public ShoppingCartResponseDto getShoppingCartByUser(@PathVariable Long userId) {
+    public ShoppingCartResponseDto getShoppingCartByUser(@PathVariable Long userId,
+                                                         Principal principal) {
         return getShoppingCartResponseDto(shoppingCartService
-                .getByUser(userService.getById(userId)));
+                .getByUser(userService.findByEmail(principal.getName())));
     }
 
     private ShoppingCartResponseDto getShoppingCartResponseDto(ShoppingCart shoppingCart) {
